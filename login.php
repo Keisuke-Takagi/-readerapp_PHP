@@ -22,7 +22,7 @@ include dirname(__FILE__) . "/head.php"
   
   <div class="main">
     <h1> ログイン </h1>
-    <form action="insert.php" method="post" class="new-user-form">
+    <form action="login-function.php" method="post" class="new-user-form">
       <td>
         <tr>
           <p>メールアドレス</p>

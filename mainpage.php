@@ -2,9 +2,12 @@
 include dirname(__FILE__) . "/head.php"
 ?>
 <body>
-<h1>
-  This is main page
-</h1>
+<?php
+    session_start();
+  if(isset($_SESSION['EMAIL'])){
+    echo "This is main page";
+}
+?>
 </body>
 <?php
 include dirname(__FILE__) . "/footer.php"
