@@ -20,12 +20,16 @@
     $password = $_POST['password'];
     echo $email;
     echo $password;
-    $sql = "INSERT INTO users (
-      email, password) VALUES (:email,:password
-    )";
-    $stmt = $dbh->prepare($sql);
-    $params = array(':email' => $email, ':password' => $password);
-    $stmt->execute($params);
+    if(isset($email)){
+      if(isset($password)){
+        $sql = "INSERT INTO users (
+          email, password) VALUES (:email,:password
+        )";
+        $stmt = $dbh->prepare($sql);
+        $params = array(':email' => $email, ':password' => $password);
+        $stmt->execute($params);
+      }
+    }
   ?>
   <a href="registration.php">もどる</a>
 </body>
