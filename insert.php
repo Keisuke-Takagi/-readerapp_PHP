@@ -22,6 +22,11 @@
     echo $password;
     if(isset($email)){
       if(isset($password)){
+        $db_emails = "SELECT email FROM users";
+        // query()で初めてDB検索が実行
+        foreach ($dbh->query($db_emails, PDO::FETCH_BOTH) as $value) {
+          var_dump($value);
+        }
         $sql = "INSERT INTO users (
           email, password) VALUES (:email,:password
         )";
