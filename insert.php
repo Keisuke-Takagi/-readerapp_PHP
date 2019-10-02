@@ -15,6 +15,7 @@
 </head>
 <body>
   <?php
+    $count = 0;
     $dbh = new PDO("mysql:host=127.0.0.1; dbname=record_book; charset=utf8", 'root', 'password');
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -26,13 +27,18 @@
         // query()で初めてDB検索が実行
         foreach ($dbh->query($db_emails, PDO::FETCH_BOTH) as $value) {
           var_dump($value);
+          if($value["email"] == $email){
+            $count = 1;
+          }
         }
-        $sql = "INSERT INTO users (
+        if($count == 0){$sql = "INSERT INTO users (
           email, password) VALUES (:email,:password
         )";
+
         $stmt = $dbh->prepare($sql);
         $params = array(':email' => $email, ':password' => $password);
         $stmt->execute($params);
+        }
       }
     }
   ?>
