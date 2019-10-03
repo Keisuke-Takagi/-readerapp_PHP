@@ -34,7 +34,7 @@ try {
   // prepareしたPDOstatmentを実行する
   $stmt = $pdo->prepare('select * from users where email = ?');
   $stmt->execute([$_POST['email']]);
-  // selectされたpdostatmentをfetchを使ってレコードとして取得する
+  // selectされたPDOstatmentをfetchを使ってレコードとして取得する
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   var_dump($row);
   var_dump($_POST['password']);
