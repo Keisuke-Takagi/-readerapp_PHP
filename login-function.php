@@ -34,10 +34,10 @@ try {
   // prepareしたPDOstatmentを実行（execute）する
   $stmt = $pdo->prepare('select * from users where email = ?');
   $stmt->execute([$_POST['email']]);
-  // selectされたPDOstatmentをfetchを使ってレコードとして取得する
+  // selectされたPDOstatmentをfetchを使ってレコードの情報を配列として取得する
   $row = $stmt->fetch(PDO::FETCH_ASSOC);
   var_dump($row);
-  var_dump($_POST['password']);
+  var_dump($_POST['email']);
 } catch (\Exception $e) {
   echo $e->getMessage() . PHP_EOL;
 } catch (\Exception $e) {
