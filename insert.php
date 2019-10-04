@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'>
-  <link rel="stylesheet" type="text/css" href="./style.css"/>
-  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-  <!-- bootstrapの導入 -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <title>ユーザー追加ページ</title>
-</head>
+<?php
+include dirname(__FILE__) . "/head.php"
+?>
+<title> 新規登録情報エラー</title>
 <body>
   <?php
     $count = 0;
@@ -27,6 +16,9 @@
       echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ5文字以上で設定してください。';
       return false;
     }
+    ?>
+    <p>
+    <?php
     if(isset($email)){
       if(isset($password)){
         $db_emails = "SELECT email FROM users";
@@ -35,18 +27,27 @@
           var_dump($value);
           if($value["email"] == $email){
             $count = 1;
+            echo 'そのメールアドレスは既に登録されています';
           }
         }
-        if($count == 0){$sql = "INSERT INTO users (
+        if($count == 0){header('Location: http://localhost/mainpage.php');
+          $insert = "INSERT INTO users (
           email, password) VALUES (:email,:password
         )";
-        $stmt = $dbh->prepare($sql);
+        $stmt = $dbh->prepare($insert);
         $params = array(':email' => $email, ':password' => $password);
         $stmt->execute($params);
+        // ログインの処理
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['EMAIL'] = $value["email"];
+        exit;
         }
       }
     }
   ?>
+  </p>
   <a href="registration.php">もどる</a>
-</body>
-</html>
+  <?php
+include dirname(__FILE__) . "/footer.php"
+?>
