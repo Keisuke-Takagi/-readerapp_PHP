@@ -1,7 +1,7 @@
 <?php
 include dirname(__FILE__) . "/head.php"
 ?>
-  <title>新規登録ページ</title>
+  <title>ログアウト</title>
 </head>
 <body>
   <header id="header">
