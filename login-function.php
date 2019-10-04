@@ -30,7 +30,7 @@ if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 }
 //DB内でPOSTされたメールアドレスを検索
 try {
-  $pdo = new PDO("mysql:host=127.0.0.1; dbname=record_book; charset=utf8", 'root', 'password');
+  $pdo = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root', '');
   // prepareしたPDOstatmentを実行する
   $stmt = $pdo->prepare('select * from users where email = ?');
   $stmt->execute([$_POST['email']]);

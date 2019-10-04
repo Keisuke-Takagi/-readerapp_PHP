@@ -16,7 +16,7 @@
 <body>
   <?php
     $count = 0;
-    $dbh = new PDO("mysql:host=127.0.0.1; dbname=record_book; charset=utf8", 'root', 'password');
+    $dbh = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root', '');
     if (!$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       echo '入力された値が不正です。';
       return false;
