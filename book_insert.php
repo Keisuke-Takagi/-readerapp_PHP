@@ -22,4 +22,29 @@ include dirname(__FILE__) . "/head.php"
   </header>
   <div class="main">
       <h1> 登録機能ページ</h1>
+      <?php
+      $dbh = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root', '');
+      if(isset($_POST['title']) && $_POST['title'] != ""){
+        // header('Location: http://localhost/mainpage.php');
+        session_start();
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $stmt = $dbh->prepare('select * from users where email = ?');
+        $stmt->execute([$_SESSION['EMAIL']]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user_id = $row['id'];
+        $_SESSION['USER_ID'] = $user_id;
+
+        echo $user_id;
+        echo $_SESSION['USER_ID'];
+        // ここから登録
+        $stmt = $dbh->prepare('INSERT INTO `books`(`title`, `description`, `user_id`) 
+        VALUES (:title, :description, :user_id)');
+        $array = array(':title' => $title, 'description' => $description, 'user_id' => $user_id);
+        $stmt->execute($array);
+
+      }else{
+        echo "本のタイトルを入力してください";
+      }
+      ?>
   </div>
