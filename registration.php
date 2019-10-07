@@ -33,7 +33,7 @@ include dirname(__FILE__) . "/head.php"
           <input type="text" name="password"class="form-input">
         </tr>
       </td>
-      <input type="submit" value="新規登録" class="form-input" >
+      <button type="submit" class="btn btn-success btn-lg">新規登録</button>
     </form>
   </div>
 <?php

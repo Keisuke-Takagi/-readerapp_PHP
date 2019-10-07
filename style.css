@@ -5,7 +5,9 @@
 a {
   text-decoration: none;
 }
-
+table {
+  border: solid 2px deepskyblue;
+}
 .navbar-header {
   width: 100%;
 }
@@ -40,6 +42,7 @@ a {
 
 .form-input {
   border: solid 1px black;
+  width: 350px;
 }
 
 footer {
@@ -89,5 +92,29 @@ li {
 .footer-link:hover {
   color: white;
   text-decoration: underline;
+}
+.contents_main{
+  padding: 20px;
+}
+#table_title＿id{
+  border-right: solid 1px black;
+}
+#table_title__name{
+  border-right: solid 1px black;
+}
+.new-user-form{
+  width: 100px;
+}
+.btn{
+  margin-top: 20px;
+}
+#table_title＿description{
+ 
+}
+.form_book_description{
+  border: solid 1px black;
+  width: 350px;
+  height: 100px;
+
 }
 /*# sourceMappingURL=style.css.map */
