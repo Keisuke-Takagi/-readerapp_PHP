@@ -63,6 +63,9 @@ li{
 }
 a{
 }
+label{
+  margin-top: 3em;
+}
 #footermenu{
   width: 100vw;
   display: block;
@@ -81,4 +84,14 @@ a{
 .footer-link:hover{
   color: white;
   text-decoration: underline;
+}
+.edit-book-form{
+  width: 400px;
+}
+.form_book_description{
+  width: 370px;
+  border: solid 1px black;
+}
+.book-edit-box__title{
+  
 }

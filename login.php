@@ -12,7 +12,7 @@ include dirname(__FILE__) . "/head.php"
             <a class="navbar-brand" href="registration.php">READ-BOOK-RECORDER</a>
             <div class="login-icon">
               <i class="fa fa-user" id="user-login-icon"  aria-hidden="true"></i>
-              <a href="login.php">ログイン</a>
+              <a href="registration.php">新規登録</a>
             </div>
           </div>
         </div>
@@ -21,8 +21,8 @@ include dirname(__FILE__) . "/head.php"
   </header>
   
   <div class="main">
-    <h1> 新規登録</h1>
-    <form action="insert.php" method="post" class="new-user-form">
+    <h1> ログイン </h1>
+    <form action="login-function.php" method="post" class="new-user-form">
       <td>
         <tr>
           <p>メールアドレス</p>
@@ -33,7 +33,7 @@ include dirname(__FILE__) . "/head.php"
           <input type="text" name="password"class="form-input">
         </tr>
       </td>
-      <button type="submit" class="btn btn-success btn-lg">新規登録</button>
+      <button type="submit" class="btn btn-success btn-lg">ログインする</button>
     </form>
   </div>
 <?php

@@ -1,47 +1,77 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'>
-  <link rel="stylesheet" type="text/css" href="./style.css"/>
-  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-  <!-- bootstrapの導入 -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <title>ユーザー追加ページ</title>
+<?php
+include dirname(__FILE__) . "/head.php"
+?>
+  <title>新規登録情報エラー</title>
 </head>
 <body>
+<body>
+  <header id="header">
+    <div class="app-icons">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="registration.php">READ-BOOK-RECORDER</a>
+            <div class="login-icon">
+              <i class="fa fa-user" id="user-login-icon"  aria-hidden="true"></i>
+              <a href="login.php">ログイン</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <div class="main">
+  <p>
+  <a href="registration.php">
   <?php
     $count = 0;
-    $dbh = new PDO("mysql:host=127.0.0.1; dbname=record_book; charset=utf8", 'root', 'password');
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    echo $email;
-    echo $password;
+    $dbh = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root', '');
+    if (!$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+      $count = 1;
+      echo '入力された値が不正です。';
+    }
+    if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{5,20}+\z/i', $_POST['password'])) {
+      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    } elseif(isset($_POST['email']) || isset($_POST['password'])){
+      echo "パスワードとメールアドレスを入力してください<br />前のページへ戻る";
+      $count = 1;
+    } else {
+      echo 'パスワードは半角英数字をそれぞれ1文字以上含んだ5文字以上で設定してください。\n前のページへ戻る';
+      $count = 1;
+      return false;
+    }
+    ?>
+    </a>
+    <a href="login.php">
+    <?php
+     session_start();
     if(isset($email)){
       if(isset($password)){
         $db_emails = "SELECT email FROM users";
         // query()で初めてDB検索が実行
         foreach ($dbh->query($db_emails, PDO::FETCH_BOTH) as $value) {
-          var_dump($value);
           if($value["email"] == $email){
             $count = 1;
+            echo 'そのメールアドレスは既に登録されています<br />ログイン画面へ';
           }
         }
-        if($count == 0){$sql = "INSERT INTO users (
+        if($count == 0){header('Location: http://localhost/mainpage.php');
+          $insert = "INSERT INTO users (
           email, password) VALUES (:email,:password
         )";
-
-        $stmt = $dbh->prepare($sql);
+        $stmt = $dbh->prepare($insert);
         $params = array(':email' => $email, ':password' => $password);
         $stmt->execute($params);
+        // ログインの処理
+        session_regenerate_id(true);
+        $_SESSION['EMAIL'] = $email;
+        exit;
         }
       }
     }
   ?>
-  <a href="registration.php">もどる</a>
-</body>
-</html>
+  </a>
+  </p>
+  <?php
+include dirname(__FILE__) . "/footer.php"
+?>
