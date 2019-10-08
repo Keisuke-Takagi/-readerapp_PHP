@@ -27,6 +27,7 @@ include dirname(__FILE__) . "/head.php"
   // ログイン状態にあるとき
   if(isset($_SESSION['EMAIL'])){
     $_SESSION = array();
+    session_destroy();
     echo "ログアウトしました";
   }else{header('Location: http://localhost/registration.php');
     exit;

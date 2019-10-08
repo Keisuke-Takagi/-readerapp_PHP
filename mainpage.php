@@ -21,10 +21,10 @@ include dirname(__FILE__) . "/head.php"
   </header>
 <?php
     session_start();
-  if(isset($_SESSION['EMAIL'])){
-    echo "This is main page";
-}else{header('Location: http://localhost/registration.php');
-}
+//   if(isset($_SESSION['EMAIL'])){
+//     echo "This is main page";
+// }else{header('Location: http://localhost/registration.php');
+// }
 ?>
 <body>
   <div class="contents_main">
@@ -32,45 +32,109 @@ include dirname(__FILE__) . "/head.php"
     <a type="button" class="btn btn-success" style="margin: 10px 0 10px 0; height:50px;   line-height: 33px;" href="book_registration.php">読んだ本を登録する</a>
     <div class="col-5 ml-3">
         <div class="card">
-            <div class="card-header"></div>
-            <table class="table table-bordered table-striped table-hover">
+            <div class="table-responsive">
+            <table class="table table-responsive-sm table-bordered table-striped table-hover table-responsive">
                 <thead>
                     <tr>
-                        <th id="table_title＿id">番号</th>
-                        <th id ="table_title__name">本のタイトル</th>
-                        <th id="table_title__description">本の説明</th>
+                        <th id="table_title＿id" style="width: 13%;">本のID</th>
+                        <th id ="table_title__name" style="width: 24%">本のタイトル</th>
+                        <th id="table_title__description" style~"">本の説明</th>
+                        <th id="table_title__menu" style="width: 13%;">編集・削除</th>
                     </tr>
                 </thead>
                 <tbody>
+                    
+                        
+                        <?php
+                          error_reporting(E_ALL);
+                          ini_set('display_errors', '1');
+                          $a = 1;
+                          if($a == 1){
+                            if (!isset($_SESSION)) {
+                              session_start();
+                              }
+                              $dbh = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root','');
+                              $stmt = $dbh->prepare('select * from users where email = ? ');
+                              $stmt->execute([$_SESSION['EMAIL']]);
+                              $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                              $user_id = $row['id'];
+                              $_SESSION['USER_ID'] = $user_id;
+                              $sql = 'select * from books where user_id = ? limit 100';
+                              $stmt2 = $dbh->prepare($sql);
+                              $stmt2->execute(array($user_id));
+                              $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                              var_dump($results);
+                              $count = count($results);
+                              $_SESSION['COUNT'] = $count;
+                              echo $count;
+                              $num = 0;
+                              // if($num  < $count){
+                                // echo '<tr>';
+                                // echo '<br />';
+                                // echo '$resultこれ';
+                                // var_dump($result)
+                                // 本のタイトルが横続きになっている
+                                // echo $result["title"];
+
+                                // echo'<td style="width:8%;">
+                                //       <p>';
+                                //     echo $results[$num]["id"];
+                                //   echo'</p>
+                                //         <a href="delete,php" class="btn-danger">
+                                //           <input type="hidden" method="post" value=""> 
+                                //           削除する
+                                //         </a>
+                                //       </td>';
+                                // echo '</tr>';
+                                // $num += 1;
+                              // }
+                              while($num  < $count){
+                              echo  '<tr>
+                                      <td><p>';
+                              echo  $num + 1;
+                              echo  ' </p></td>
+                                      <td><p>';
+                              echo  $results[$num]["title"];
+                              echo  '  </p></td>
+                                      <td><p>';
+                              echo  $results[$num]["description"];
+                              echo  '</p></td>
+                                      <td><p>
+                                      <form action="delete.php" method="post" class="new-user-form">
+                                      <input type="hidden"name="';
+                                      echo $_SESSION['COUNT'];
+                                      echo '" class="btn btn-danger"value="';
+                                      echo  $results[$num]["id"];
+                                      echo'">
+                                      <input type="submit" class="btn btn-danger" value="削除">
+                                      </form></p>
+                                      <form action="edit.php" method="post" class="edit-book-form">
+                                      <input type="hidden"name="';
+                                      echo $_SESSION['COUNT'];
+                                      echo '" class="btn btn-danger"value="';
+                                      echo $results[$num]["id"];
+                                      echo '">
+                                      <input type="submit" class="btn btn-danger" value="編集">
+                                      </form></p></td>';
+                                      ;
+                              echo    '</tr>';
+                              $num += 1;
+                              }
+                            }
+                          ?>
                     <tr>
-                    <?php
-                      ?>
-                        <td style="width:8%;">1</td>
-                        <td style="width:35%; font-weight: bold;">エンジニア1</td>
-                        <td>PHP</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
+                        <td><?php
+                        echo $_SESSION['USER_ID'];
+                        echo $_SESSION['EMAIL'];
+                        ?>
+                        </td>
                         <td>エンジニア2</td>
                         <td>Ruby</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>エンジニア3</td>
-                        <td>VBA</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>エンジニア4</td>
-                        <td>JAVA</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>エンジニア5</td>
-                        <td>Python</td>
-                    </tr>
                 </tbody>
             </table>
+          </div>
+
         </div>
     </div>
   </div>

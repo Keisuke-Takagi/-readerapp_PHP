@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'>
-  <link rel="stylesheet" type="text/css" href="./style.css"/>
+  <link rel="stylesheet" type="text/css" href="./style.scss"/>
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <!-- bootstrapの導入 -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">

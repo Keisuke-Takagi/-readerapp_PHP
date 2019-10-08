@@ -17,12 +17,15 @@ include dirname(__FILE__) . "/head.php"
           </div>
         </div>
       </nav>
+      
     </div>
   </header>
   
   <div class="main">
     <?php
-    session_start();
+      if (!isset($_SESSION)) {
+        session_start();
+        }
 //POSTのvalidate
 if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
   echo '入力されたアドレス値が不正です。';

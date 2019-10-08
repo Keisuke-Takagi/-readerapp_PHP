@@ -19,13 +19,19 @@ include dirname(__FILE__) . "/head.php"
       </nav>
     </div>
   </header>
+  <p>
 <?php
-    session_start();
-  if(isset($_SESSION['EMAIL'])){
-    echo "This is main page";
-}else{header('Location: http://localhost/registration.php');
-}
+  if (!isset($_SESSION)) {
+  session_start();
+  echo $_SESSION['EMAIL'];
+  }else{
+    echo $_SESSION['EMAIL'];
+  }
+  // if(isset($_SESSION['EMAIL'])){
+  //   echo "This is main page";
+  // }else{header('Location: http://localhost/registration.php');}
 ?>
+</p>
 <body>
     <div class="contents_main">
     <h1> 読んだ本登録フォーム</h1>
