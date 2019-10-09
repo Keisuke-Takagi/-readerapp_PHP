@@ -25,7 +25,9 @@ include dirname(__FILE__) . "/head.php"
   <a href="registration.php">
   <?php
     $count = 0;
-    $dbh = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root', '');
+    require_once("database.php");
+    $database = new Database();
+    $dbh = $database->open();
     if (!$email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $count = 1;
       echo '入力された値が不正です。';

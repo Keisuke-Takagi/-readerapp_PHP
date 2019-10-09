@@ -95,3 +95,19 @@ label{
 .book-edit-box__title{
   
 }
+table{
+  border-collapse: collapse;
+  width: 100%;
+
+  white-space: nowrap;
+}
+.table-responsive{
+  width: 100%;
+  overflow-x: scroll;
+  width: 98%;
+  padding: 10px;
+}
+.contents_main{
+  padding: 20px 0;
+  width: 100%;
+}
