@@ -117,4 +117,10 @@ li {
   height: 100px;
 
 }
+.edit-book-form{
+  direction: rtl;
+}
+.menu-flex-box{
+  display: flex;
+}
 /*# sourceMappingURL=style.css.map */

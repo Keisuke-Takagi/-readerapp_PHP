@@ -25,8 +25,11 @@ include dirname(__FILE__) . "/head.php"
   if (!isset($_SESSION)) {
   session_start();
   }
-  if(isset($_SESSION['EMAIL']) && isset($_SESSION['COUNT'])){
-    try {$dbh = new PDO("mysql:host=127.0.0.1; dbname=test; charset=utf8", 'root','');
+  if(isset($_SESSION['EMAIL']) && isset($_SESSION['COUNT'])){header('Location: http://localhost/mainpage.php');
+    try {
+      require_once("database.php");
+      $database = new Database();
+      $dbh = $database->open();
       $stmt = $dbh->prepare('select * from books where id = ?');
       $stmt->execute([$_POST[$_SESSION['COUNT']]]);
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
